@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+
+package load_balancer;
+
+// The LoadBalance service definition.
+service LoadBalancer {
+  // Sends a minimum load server request
+  rpc OnServerRequested (ServerRequest) returns (SelectedServer) {}
+}
+
+// The server info request message 
+message ServerRequest {
+}
+
+// The response message containing the selected server that has minimum load
+message SelectedServer{
+  string server_addr = 1;
+}

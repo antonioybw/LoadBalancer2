@@ -1,0 +1,31 @@
+syntax = "proto3";
+package processor;
+
+message JobMeta {
+  string video_file_path = 1;
+  string image_file_path = 2;
+}
+
+message FaceMeta {
+  bool success = 1;
+  string face_icon = 2;
+  string face_level = 3;
+  string face_name = 4;
+  string face_feature = 5;
+}
+
+message Empty{}
+
+message JobQueueMeta{
+ int32 job_queue_size = 1;
+}
+
+service ProcessorJobHandler {
+  rpc OnDispatchReceived(JobMeta) returns (Empty) {}
+
+  // Give a user photo, generate ff and icon for DB
+  // rpc OnImageDispatchReceived(JobMeta) returns (Empty) {}
+
+  // Give the load balancer the job_queue size
+  rpc JobQueueSizeRequested(Empty) returns (JobQueueMeta) {}
+}
